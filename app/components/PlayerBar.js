@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { StyleRulesCallback, Theme, WithStyles, AppBar, Toolbar, Typography,
-  Grid, Card, CardContent, IconButton, CardMedia } from "material-ui";
-import { Home, FormatListBulleted, Settings, Magnify } from "mdi-material-ui"
+import { AppBar, Toolbar, Typography } from "material-ui";
 
 let styles = theme => ({
   root: {

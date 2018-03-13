@@ -3,19 +3,19 @@ import { routerMiddleware, routerReducer as routing, push } from 'react-router-r
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
-import user from './reducers/user';
-import userActions from './actions/user';
+import index from './reducers/index';
+import actionList from './actions/actionList';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...userActions,
+    ...actionList,
     push
   };
 
   const reducers = {
-    user,
+    index,
     routing
   };
 

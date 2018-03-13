@@ -5,8 +5,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { createMemoryHistory } from 'history';
 import { MuiThemeProvider } from 'material-ui';
 import theme from './utils/theme';
-import configureStore from './store';
 import Routes from './utils/routes';
+import configureStore from './store';
 import Menu from './components/Menu';
 import PlayerBar from './components/PlayerBar';
 

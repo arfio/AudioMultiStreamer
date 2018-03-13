@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
-import actions from '../actions/user';
+import actionList from '../actions/actionList';
 
 export default handleActions({
-  [actions.login]: (state, action) => {
+  [actionList.search]: (state, action) => {
     return { ...state, ...action.payload };
   }
 }, {});

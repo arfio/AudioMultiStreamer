@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import LoginPage from '../containers/LoginPage';
 import LoggedInPage from '../containers/LoggedInPage';
 import SettingsPage from '../containers/SettingsPage';
-
+import SearchPage from '../containers/SearchPage';
 
 let styles = theme => ({
   page: {
@@ -21,9 +21,9 @@ class Routes extends React.Component {
     return (
       <div className={classes.page}>
         <Switch>
-            <Route exact path="/" component={LoginPage}/>
-            <Route exact path="/settings" component={SettingsPage} />
-            <Route exact path="/loggedin" component={LoggedInPage} />
+          <Route exact path="/" component={SearchPage}/>
+          <Route exact path="/search" component={SearchPage} />
+          <Route exact path="/settings" component={SettingsPage} />
         </Switch>
       </div>
     );
