@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
+import React, { Component } from "react";
+import { withStyles } from "material-ui/styles";
 import { AppBar, Toolbar, Typography } from "material-ui";
 
 let styles = theme => ({
@@ -11,7 +11,7 @@ let styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   pageTitle: theme.typography.button,
   mainContent: {

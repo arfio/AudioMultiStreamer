@@ -1,12 +1,12 @@
-import { spawn } from 'child_process';
-import electron from 'electron';
-import browserSync from 'browser-sync';
-import browserSyncConnectUtils from 'browser-sync/dist/connect-utils';
+import { spawn } from "child_process";
+import electron from "electron";
+import browserSync from "browser-sync";
+import browserSyncConnectUtils from "browser-sync/dist/connect-utils";
 
 const bsync = browserSync.create();
 
 const getRootUrl = (options) => {
-  const port = options.get('port');
+  const port = options.get("port");
   return `http://localhost:${port}`;
 };
 
@@ -17,7 +17,7 @@ const getClientUrl = (options) => {
 
 bsync.init({
   ui: false,
-  // Port 35829 = LiveReload's default port 35729 + 100.
+  // Port 35829 = LiveReload"s default port 35729 + 100.
   // If the port is occupied, Browsersync uses next free port automatically.
   port: 35829,
   ghostMode: false,
@@ -31,22 +31,22 @@ bsync.init({
 }, (err, bs) => {
   if (err) return console.error(err);
 
-  const child = spawn(electron, ['.', '--enable-logging'], {
+  const child = spawn(electron, [".", "--enable-logging"], {
     env: {
       ...{
-        NODE_ENV: 'development',
+        NODE_ENV: "development",
         BROWSER_SYNC_CLIENT_URL: getClientUrl(bs.options)
       },
       ...process.env
     },
-    stdio: 'inherit'
+    stdio: "inherit"
   });
 
-  child.on('close', () => {
+  child.on("close", () => {
     process.exit();
   });
 
   bsync
-    .watch('build/**/*')
-    .on('change', bsync.reload);
+    .watch("build/**/*")
+    .on("change", bsync.reload);
 });

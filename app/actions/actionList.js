@@ -1,5 +1,5 @@
-import { createAction } from 'redux-actions';
+import { createAction } from "redux-actions";
 
 export default {
-  search: createAction('SEARCH')
+  search: createAction("SEARCH")
 };

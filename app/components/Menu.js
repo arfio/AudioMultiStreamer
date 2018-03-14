@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
+import React, { Component } from "react";
+import { withStyles } from "material-ui/styles";
 import { Drawer, ListItem, ListItemText, List, Divider, ListItemIcon } from "material-ui";
 import { Home, FormatListBulleted, Settings, Magnify } from "mdi-material-ui"
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   drawerPaper: {

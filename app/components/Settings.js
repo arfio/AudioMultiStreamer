@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
-import { AppBar, Button } from 'material-ui';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Typography from 'material-ui/Typography';
-import SC from 'soundcloud';
+import React, { Component } from "react";
+import { withStyles } from "material-ui/styles";
+import { AppBar, Button } from "material-ui";
+import Tabs, { Tab } from "material-ui/Tabs";
+import Typography from "material-ui/Typography";
+import SC from "soundcloud";
 
 let styles = theme => ({
 });
@@ -19,10 +19,10 @@ class Settings extends Component {
 
   play = () => {
     SC.initialize({
-      client_id: '',
-      redirect_uri: 'example.com/callback'
+      client_id: "",
+      redirect_uri: "example.com/callback"
     }).then(() => {
-      SC.stream('/tracks/226636929')
+      SC.stream("/tracks/226636929")
     }).then((player) => {
       player.play();
     });
@@ -33,7 +33,7 @@ class Settings extends Component {
     const { value } = this.state;
     return (
       <div>
-        
+
       </div>
     );
   }

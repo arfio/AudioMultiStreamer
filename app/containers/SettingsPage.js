@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import Settings from '../components/Settings';
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import { bindActionCreators } from "redux";
+import Settings from "../components/Settings";
 
 const mapStateToProps = (state) => {
   return state;

@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import { createMemoryHistory } from 'history';
-import { MuiThemeProvider } from 'material-ui';
-import theme from './utils/theme';
-import Routes from './utils/routes';
-import configureStore from './store';
-import Menu from './components/Menu';
-import PlayerBar from './components/PlayerBar';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "react-router-redux";
+import { createMemoryHistory } from "history";
+import { MuiThemeProvider } from "material-ui";
+import theme from "./utils/theme";
+import Routes from "./utils/routes";
+import configureStore from "./store";
+import Menu from "./components/Menu";
+import PlayerBar from "./components/PlayerBar";
 
 const syncHistoryWithStore = (store, history) => {
   const { routing } = store.getState();
@@ -22,7 +22,7 @@ const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
 
-const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
+const rootElement = document.querySelector(document.currentScript.getAttribute("data-container"));
 document.body.style = "margin:0;"
 ReactDOM.render(
   <Provider store={store}>

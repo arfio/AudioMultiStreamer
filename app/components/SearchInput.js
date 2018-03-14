@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import { TextField } from 'material-ui';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
+import { TextField } from "material-ui";
 
-let styles = theme => ({
+const styles = theme => ({
 });
 
 class SearchInput extends Component {
   state = {
-    query: ''
+    query: ""
   };
 
   handleChange = (event) => {
-    this.setState({
-      query: event.target.value
-    });
+    this.setState({ query: event.target.value });
   }
 
   handleSearch = (event) => {
-    this.props.onSearch({
-      query: this.state.query
-    });
+    this.props.onSearch(this.state.query);
   }
 
   render() {
@@ -32,15 +28,15 @@ class SearchInput extends Component {
           label="Search"
           value={this.state.query}
           onChange={this.handleChange}
-          onKeyDown={(e) => {if (e.key == 'Enter') this.handleSearch(e)}}
+          onKeyDown={(e) => {if (e.key == "Enter") this.handleSearch(e)}}
           margin="normal"
         />
       </div>
     );
   }
 }
-Search.propTypes = {
+SearchInput.propTypes = {
   onSearch: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Search);
+export default withStyles(styles)(SearchInput);
