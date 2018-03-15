@@ -4,22 +4,27 @@ import apis from "../utils/apis";
 import actionList from "../actions/actionList";
 
 export default handleActions({
-  [actionList.search]: (state, action) => {
-    Object.keys(apis).forEach((element) => {
-      console.log(getAllFuncs(apis[element]));
+  [actionList.searchPending]: (state, action) => {
+    const apiList = Object.keys(apis).map(key => apis[key])
+    let promises = Array();
+    apiList.forEach((api) => {
+      promises.push(api.searchMusic());
     });
-    const apiList = Object.keys(apis).reduce((previous, current) => {
-      // console.log(apis[previous])
-      // console.log(apis[current]);
-      if (apis[current].hasOwnProperty('searchMusic')) {
-        previous = new Array( ...apis[previous], apis[current].searchMusic(action.query));
-      }
-      return previous;
+
+    Promise.all(promises)
+    .then((results) => {
+      return results.reduce((previous, current, index) => {
+        previous.push(...apiList[index].extractMusicObjectFromResult(current));
+        return previous;
+      }, []);
+    })
+    .then((tracks) => {
+      action.asyncDispatch(actionList.searchSuccess(tracks));
     });
-    console.log(apiList);
-    // apiList.forEach((api) => {
-    //   console.log(api.searchMusic());
-    // });
-    return { ...state, ...action.payload };
+    return { ...state, query: action.payload };
+  },
+
+  [actionList.searchSuccess]: (state, action) => {
+    return { ...state, tracks: action.payload };
   }
 }, {});

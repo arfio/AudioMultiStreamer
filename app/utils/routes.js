@@ -1,8 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router";
 import { withStyles } from "material-ui/styles";
-import LoginPage from "../containers/LoginPage";
-import LoggedInPage from "../containers/LoggedInPage";
 import SettingsPage from "../containers/SettingsPage";
 import SearchPage from "../containers/SearchPage";
 

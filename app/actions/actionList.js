@@ -1,5 +1,6 @@
 import { createAction } from "redux-actions";
 
 export default {
-  search: createAction("SEARCH")
+  searchPending: createAction("SEARCH_PENDING"),
+  searchSuccess: createAction("SEARCH_SUCCESS")
 };

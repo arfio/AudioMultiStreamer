@@ -4,6 +4,7 @@ import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 
 import index from "./reducers/index";
+import { asyncDispatchMiddleware } from "./middleware/asyncDispatchMiddleware";
 import actionList from "./actions/actionList";
 
 export default function configureStore(initialState, routerHistory) {
@@ -19,7 +20,7 @@ export default function configureStore(initialState, routerHistory) {
     routing
   };
 
-  const middlewares = [ thunk, router ];
+  const middlewares = [ thunk, router, asyncDispatchMiddleware ];
 
   const composeEnhancers = (() => {
     const compose_ = window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;

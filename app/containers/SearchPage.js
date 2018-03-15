@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (query) => { dispatch(actionList.search(query)); }
+    search: (query) => { dispatch(actionList.searchPending(query)); }
   };
 };
 
