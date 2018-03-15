@@ -1,19 +1,30 @@
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
-import { bindActionCreators } from "redux";
+import actionList from "../actions/actionList";
 import SearchInput from "../components/SearchInput";
-import { JamendoApi } from "../utils/apis";
+
+class SearchPage extends Component {
+  handleSearch = (event) => {
+    this.props.search(event.target.value);
+  }
+
+  render() {
+    return (
+      <SearchInput handleSearch={this.handleSearch}/>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
-  return state;
+  return {
+    query: state.query
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSearch: (query) => {
-      console.log(JamendoApi.searchMusic(query));
-    }
+    search: (query) => { dispatch(actionList.search(query)); }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

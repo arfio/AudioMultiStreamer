@@ -7,28 +7,14 @@ const styles = theme => ({
 });
 
 class SearchInput extends Component {
-  state = {
-    query: ""
-  };
-
-  handleChange = (event) => {
-    this.setState({ query: event.target.value });
-  }
-
-  handleSearch = (event) => {
-    this.props.onSearch(this.state.query);
-  }
-
   render() {
-    // const { classes } = this.props;
     return (
       <div>
         <TextField
           id="searchfield"
           label="Search"
-          value={this.state.query}
-          onChange={this.handleChange}
-          onKeyDown={(e) => {if (e.key == "Enter") this.handleSearch(e)}}
+          value={this.props.query}
+          onKeyDown={(e) => {if (e.key == "Enter") this.props.handleSearch(e)}}
           margin="normal"
         />
       </div>
@@ -36,7 +22,8 @@ class SearchInput extends Component {
   }
 }
 SearchInput.propTypes = {
-  onSearch: PropTypes.func.isRequired
+  handleSearch: PropTypes.func.isRequired,
+  query: PropTypes.string
 };
 
 export default withStyles(styles)(SearchInput);
