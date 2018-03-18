@@ -8,7 +8,7 @@ export default handleActions({
     const apiList = Object.keys(apis).map(key => apis[key])
     let promises = Array();
     apiList.forEach((api) => {
-      promises.push(api.searchMusic());
+      promises.push(api.searchMusic(action.payload));
     });
 
     Promise.all(promises)

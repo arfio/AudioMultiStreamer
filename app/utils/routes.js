@@ -6,10 +6,9 @@ import SearchPage from "../containers/SearchPage";
 
 let styles = theme => ({
   page: {
-    marginTop: 64,
     marginLeft: 180,
     height: "100%",
-    background: theme.palette.secondary.light
+    background: theme.palette.secondary.dark
   }
 });
 

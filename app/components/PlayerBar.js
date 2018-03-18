@@ -23,7 +23,7 @@ class PlayerBar extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      <AppBar position="sticky" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography className={classes.pageTitle}><b>Audio</b>MultiStreamer</Typography>
         </Toolbar>
