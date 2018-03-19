@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router";
 import { withStyles } from "material-ui/styles";
-import SettingsPage from "../containers/SettingsPage";
+import PlaylistPage from "../containers/PlaylistPage";
 import SearchPage from "../containers/SearchPage";
 
 let styles = theme => ({
@@ -19,8 +19,7 @@ class Routes extends React.Component {
       <div className={classes.page}>
         <Switch>
           <Route exact path="/" component={SearchPage}/>
-          <Route exact path="/search" component={SearchPage} />
-          <Route exact path="/settings" component={SettingsPage} />
+          <Route exact path="/playlist" component={PlaylistPage} />
         </Switch>
       </div>
     );

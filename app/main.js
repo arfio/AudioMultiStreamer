@@ -1,11 +1,15 @@
 import path from "path";
 import url from "url";
+import temp from "temp";
 import {app, crashReporter, BrowserWindow, Menu} from "electron";
 
 const isDevelopment = (process.env.NODE_ENV === "development");
 
 let mainWindow = null;
 let forceQuit = false;
+
+// Track temporary storage and delete files on exit.
+temp.track();
 
 const installExtensions = async () => {
   const installer = require("electron-devtools-installer");
@@ -36,6 +40,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+  temp.cleanupSync();
 });
 
 app.on("ready", async () => {

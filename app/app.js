@@ -4,13 +4,11 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import { createMemoryHistory } from "history";
 import { MuiThemeProvider } from "material-ui";
-import temp from "temp";
-import electrondl from "electron-dl";
 import theme from "./utils/theme";
 import Routes from "./utils/routes";
 import configureStore from "./store";
 import Menu from "./components/Menu";
-import PlayerBar from "./components/PlayerBar";
+import Player from "./containers/Player";
 
 const syncHistoryWithStore = (store, history) => {
   const { routing } = store.getState();
@@ -18,8 +16,7 @@ const syncHistoryWithStore = (store, history) => {
     history.replace(routing.location);
   }
 };
-// Track temporary storage and delete files on exit.
-temp.track();
+
 const initialState = {};
 const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
@@ -32,7 +29,7 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <ConnectedRouter history={routerHistory}>
         <div>
-          <PlayerBar/>
+          <Player/>
           <Menu/>
           <Routes/>
         </div>

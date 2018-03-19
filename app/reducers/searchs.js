@@ -1,10 +1,11 @@
 import { handleActions } from "redux-actions";
-import apis from "../utils/apis";
+import { getAllApis } from "../utils/apis";
 import actionList from "../actions/actionList";
 
 export default handleActions({
   [actionList.searchPending]: (state, action) => {
-    const apiList = Object.keys(apis).map(key => apis[key])
+    const apiList = getAllApis();
+    console.log(apiList);
     let promises = Array();
     apiList.forEach((api) => {
       promises.push(api.searchMusic(action.payload));

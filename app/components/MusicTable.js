@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { Typography, Paper, Button, IconButton, Table,
   TableBody, TableCell, TableHead, TableRow } from "material-ui";
 import { withStyles } from "material-ui/styles";
-import { Play, PlaylistPlus } from "mdi-material-ui";
+import { Play, PlaylistPlus, Soundcloud } from "mdi-material-ui";
 
 const styles = theme => ({
   root: {
     margin: "auto",
-    width: '100%',
-    overflowX: 'auto',
+    width: "100%",
+    overflowX: "auto",
   },
   table: {
     minWidth: 700,
@@ -49,7 +49,14 @@ class MusicTable extends Component {
                       <Play/>
                     </IconButton>
                   </TableCell>
-                  <TableCell padding="checkbox">{t.title}</TableCell>
+                  <TableCell padding="checkbox">
+                    {t.title}
+                    <div>
+                      {t.provider == "SoundcloudApi" && <Soundcloud/>}
+                      {t.provider == "DeezerApi" && "Deezer"}
+                      {t.provider == "JamendoApi" && "Jamendo"}
+                    </div>
+                  </TableCell>
                   <TableCell padding="checkbox">{t.author}</TableCell>
                   <TableCell numeric>{this.formatTime(t.duration)}</TableCell>
                   <TableCell padding="checkbox">

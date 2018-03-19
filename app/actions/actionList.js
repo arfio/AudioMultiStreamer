@@ -4,5 +4,7 @@ export default {
   searchPending: createAction("SEARCH_PENDING"),
   searchSuccess: createAction("SEARCH_SUCCESS"),
   playPending: createAction("PLAY_PENDING"),
-  playSuccess: createAction("PLAY_SUCCESS")
+  playSuccess: createAction("PLAY_SUCCESS"),
+  resume: createAction("RESUME"),
+  pause: createAction("PAUSE")
 };
