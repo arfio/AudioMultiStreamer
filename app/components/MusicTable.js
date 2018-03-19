@@ -9,7 +9,7 @@ const styles = theme => ({
   root: {
     margin: "auto",
     width: '100%',
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   table: {
     minWidth: 700,
@@ -45,7 +45,7 @@ class MusicTable extends Component {
               return (
                 <TableRow key={t.musicId}>
                   <TableCell padding="checkbox">
-                    <IconButton aria-label="Play/pause" onClick={() => this.props.play(t.musicId)}>
+                    <IconButton aria-label="Play/pause" onClick={() => this.props.play(t)}>
                       <Play/>
                     </IconButton>
                   </TableCell>

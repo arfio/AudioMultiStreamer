@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { getAllFuncs } from "../utils/metautils";
 import apis from "../utils/apis";
 import actionList from "../actions/actionList";
 

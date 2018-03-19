@@ -9,8 +9,8 @@ class SearchPage extends Component {
     this.props.search(event.target.value);
   }
 
-  handlePlay = (musicId) => {
-    this.props.play(musicId);
+  handlePlay = (track) => {
+    this.props.play(track);
   }
 
   render() {
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     search: (query) => { dispatch(actionList.searchPending(query)); },
-    play: (musicId) => { dispatch(actionList.playPending(musicId)); }
+    play: (track) => { dispatch(actionList.playPending(track)); }
   };
 };
 
