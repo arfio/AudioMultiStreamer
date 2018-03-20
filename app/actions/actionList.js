@@ -10,8 +10,6 @@ export default {
   playSuccess: createAction("PLAY_SUCCESS"),
   resume: createAction("RESUME"),
   pause: createAction("PAUSE"),
-  next: createAction("NEXT"),
-  previous: createAction("PREVIOUS"),
   initialize: createAction("INITIALIZE"),
 
   // playlist actions
@@ -20,4 +18,6 @@ export default {
   deletePlaylist: createAction("DELETE_PLAYLIST"),
   playPlaylist: createAction("PLAY_PLAYLIST"),
   selectPlaylist: createAction("SELECT_PLAYLIST"),
+  next: createAction("NEXT"),
+  previous: createAction("PREVIOUS"),
 };
