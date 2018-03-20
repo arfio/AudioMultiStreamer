@@ -22,8 +22,8 @@ class PlaylistPage extends Component {
   }
 
   handlePlayPlaylist = (track) => {
-    console.log("PLAY PLAYLSIT");
-    // TODO!!!
+    this.props.playPlaylist(track);
+    this.props.play(track);
   }
 
   handleAddRemoveTrackPlaylist = (name, track) => {
@@ -86,10 +86,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    play: (track) => { dispatch(actionList.playPending(track)); },
     createPlaylist: (name) => { dispatch(actionList.createPlaylist(name)); },
     deleteFromPlaylist: (name, track) => { dispatch(actionList.deleteFromPlaylist(name, track)); },
     deletePlaylist: (name) => { dispatch(actionList.deletePlaylist(name)); },
-    playPlaylist: (name, track) => { dispatch(actionList.playPlaylist(name, track)) },
+    playPlaylist: (track) => { dispatch(actionList.playPlaylist(track)) },
     selectPlaylist: (index) => { dispatch(actionList.selectPlaylist(index)); },
     addRemoveTrackPlaylist: (name, track) => {
       dispatch(actionList.addRemoveTrackPlaylist([name, track])); },

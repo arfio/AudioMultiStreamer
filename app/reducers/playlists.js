@@ -37,13 +37,33 @@ export default handleActions({
   },
 
   [actionList.playPlaylist]: (state, action) => {
-    // TODO
+    return {
+      ...state,
+      currentPlaylist: state.currentDisplayedPlaylist,
+      currentTrack: action.payload };
   },
 
   [actionList.selectPlaylist]: (state, action) => {
     return { ...state, currentDisplayedPlaylist: action.payload };
   },
 
+  [actionList.next]: (state, action) => {
+    const currentPlaylist = state.playlists[Object.keys(state.playlists)[state.currentPlaylist]];
+    console.log("NEXT CURRENTPLAYLIST:", currentPlaylist);
+    let nextTrack = state.currentTrack + 1;
+    if (state.currentTrack >= currentPlaylist.length) {
+      nextTrack = 0;
+    }
+    console.log("DISPATCH NEXT TRACK", currentPlaylist[nextTrack]);
+    action.asyncDispatch(
+      actionList.playPending(currentPlaylist[nextTrack])
+    );
+    return { ...state, currentTrack: nextTrack };
+  },
+
+  [actionList.previous]: (state, action) => {
+    // TODO
+  },
 }, {
   playlists: {},
   currentDisplayedPlaylist: 0,

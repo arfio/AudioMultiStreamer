@@ -24,12 +24,12 @@ class Player extends Component {
     this.props.pause();
   };
 
-  handleNext = (track) => {
-    console.log("NEXT");
+  handleNext = () => {
+    this.props.next();
   };
 
-  handlePrevious = (track) => {
-    console.log("PREVIOUS");
+  handlePrevious = () => {
+    this.props.previous(this.state.position);
   };
 
   onPause = (audioPlayer) => {

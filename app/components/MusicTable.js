@@ -46,64 +46,83 @@ class MusicTable extends Component {
     return this.props.playlists[playlistKey].find(t => t.musicId === this.state.track.musicId);
   };
 
+  renderTableHead = () => {
+    return (
+      <TableHead>
+        <TableRow>
+          <TableCell padding="checkbox"></TableCell>
+          <TableCell padding="checkbox">Track title</TableCell>
+          <TableCell padding="checkbox">Author</TableCell>
+          <TableCell numeric>Duration</TableCell>
+          <TableCell padding="checkbox">Add to playlist</TableCell>
+        </TableRow>
+      </TableHead>
+    );
+  };
+
+  renderTableBody = () => {
+    const { classes, tracks } = this.props;
+    return (
+      <TableBody>
+        {tracks.map(t => {
+          return (
+            <TableRow key={t.musicId}>
+              <TableCell padding="checkbox">
+                <IconButton aria-label="Play/pause" onClick={() => this.props.play(t)}>
+                  <Play/>
+                </IconButton>
+              </TableCell>
+              <TableCell padding="checkbox">
+                {t.title}
+                <div>
+                  {t.provider == "SoundcloudApi" && <Soundcloud/>}
+                  {t.provider == "DeezerApi" && "Deezer"}
+                  {t.provider == "JamendoApi" && "Jamendo"}
+                </div>
+              </TableCell>
+              <TableCell padding="checkbox">{t.author}</TableCell>
+              <TableCell numeric>{this.formatTime(t.duration)}</TableCell>
+              <TableCell padding="checkbox">
+                <IconButton onClick={(event) => this.handleOpenMenu(event, t)}>
+                  <PlaylistPlus/>
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    );
+  };
+
+  renderPlaylistMenu = () => {
+    const { anchorEl, track } = this.state;
+    return (
+      <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleCloseMenu}>
+      {this.props.playlists.map(playlist =>
+        <MenuItem
+          key={playlist}
+          selected={this.isTrackInPlaylist(playlist)}
+          onClick={() => {
+            this.props.addRemoveTrackPlaylist(this.state.track, playlist);
+            this.setState({ anchorEl: null });
+          }}
+        >
+          {playlist}
+        </MenuItem>
+      )}
+    </Menu>
+    );
+  };
+
   render() {
     const { classes, tracks } = this.props;
-    const { anchorEl, track } = this.state;
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox"></TableCell>
-              <TableCell padding="checkbox">Track title</TableCell>
-              <TableCell padding="checkbox">Author</TableCell>
-              <TableCell numeric>Duration</TableCell>
-              <TableCell padding="checkbox">Add to playlist</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tracks.map(t => {
-              return (
-                <TableRow key={t.musicId}>
-                  <TableCell padding="checkbox">
-                    <IconButton aria-label="Play/pause" onClick={() => this.props.play(t)}>
-                      <Play/>
-                    </IconButton>
-                  </TableCell>
-                  <TableCell padding="checkbox">
-                    {t.title}
-                    <div>
-                      {t.provider == "SoundcloudApi" && <Soundcloud/>}
-                      {t.provider == "DeezerApi" && "Deezer"}
-                      {t.provider == "JamendoApi" && "Jamendo"}
-                    </div>
-                  </TableCell>
-                  <TableCell padding="checkbox">{t.author}</TableCell>
-                  <TableCell numeric>{this.formatTime(t.duration)}</TableCell>
-                  <TableCell padding="checkbox">
-                    <IconButton onClick={(event) => this.handleOpenMenu(event, t)}>
-                      <PlaylistPlus/>
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+          {this.renderTableHead()}
+          {this.renderTableBody()}
         </Table>
-        <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleCloseMenu}>
-          {this.props.playlists.map(playlist =>
-            <MenuItem
-              key={playlist}
-              selected={this.isTrackInPlaylist(playlist)}
-              onClick={() => {
-                this.props.addRemoveTrackPlaylist(this.state.track, playlist);
-                this.setState({ anchorEl: null });
-              }}
-            >
-              {playlist}
-            </MenuItem>
-          )}
-        </Menu>
+        {this.renderPlaylistMenu()}
       </Paper>
     );
   }
