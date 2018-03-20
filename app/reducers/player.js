@@ -21,6 +21,10 @@ export default handleActions({
   },
 
   [actionList.playSuccess]: (state, action) => {
+    // This case arises when a track arrives after another even if it was played before.
+    if (action.payload.musicId !== state.track.musicId) {
+      return { ...state };
+    }
     return { ...state, player: action.payload };
   },
 

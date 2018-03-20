@@ -34,7 +34,8 @@ class AbstractApi {
         path: inputPath,
         status: Sound.status.PLAYING,
         isPlaying: true,
-        position: 0
+        position: 0,
+        musicId: track.musicId,
       };
     });
   }
@@ -83,7 +84,8 @@ client_id=${soundcloudClientId}`;
           path: inputStream.path,
           status: Sound.status.PLAYING,
           isPlaying: true,
-          position: 0
+          position: 0,
+          musicId: track.musicId,
         });
       });
     });
