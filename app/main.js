@@ -50,8 +50,8 @@ app.on("ready", async () => {
 
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 800,
-    minWidth: 640,
+    height: 915,
+    minWidth: 915,
     minHeight: 480,
     show: false
   });

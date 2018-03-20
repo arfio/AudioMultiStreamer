@@ -9,7 +9,7 @@ export default handleActions({
     if (Object.getOwnPropertyNames(state.track).length > 0 &&
         Object.getOwnPropertyNames(state.player).length > 0) {
       const previousApi = getApi(state.track.provider);
-      player = previousApi.pauseMusic(state.player);
+      player = previousApi.pauseMusic(state.player, state.track);
     }
 
     const api = getApi(action.payload.provider);
@@ -17,22 +17,35 @@ export default handleActions({
     .then((player) => {
       action.asyncDispatch(actionList.playSuccess(player));
     });
-    return {...state, track: action.payload, player: player};
+    return { ...state, track: action.payload, player: { ...player, isLoading: true }};
   },
 
   [actionList.playSuccess]: (state, action) => {
-    return {...state, player: action.payload};
+    return { ...state, player: action.payload };
+  },
+
+  [actionList.initialize]: (state, action) => {
+    if (Object.getOwnPropertyNames(state.track).length == 0) {
+      return { ...state };
+    }
+    const api = getApi(state.track.provider);
+    api.playMusic(state.track)
+    .then((player) => {
+      const newPlayer = api.pauseMusic(player, state.track);
+      action.asyncDispatch(actionList.playSuccess(newPlayer));
+    });
+    return { ...state, player: { isLoading: true } };
   },
 
   [actionList.pause]: (state, action) => {
     const api = getApi(state.track.provider);
-    const player = api.pauseMusic(state.player);
-    return {...state, player: player};
+    const player = api.pauseMusic(state.player, state.track);
+    return { ...state, player: player };
   },
 
   [actionList.resume]: (state, action) => {
     const api = getApi(state.track.provider);
-    const player = api.resumeMusic(state.player);
-    return {...state, player: player};
+    const player = api.resumeMusic(state.player, state.track);
+    return { ...state, player: player };
   },
 }, {track: {}, player: {}});

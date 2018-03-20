@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Typography, Paper, Button, IconButton, Table,
-  TableBody, TableCell, TableHead, TableRow } from "material-ui";
+  TableBody, TableCell, TableHead, TableRow, Menu, MenuItem } from "material-ui";
 import { withStyles } from "material-ui/styles";
 import { Play, PlaylistPlus, Soundcloud } from "mdi-material-ui";
 
@@ -13,10 +13,16 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700,
+    maxWidth: 700
   },
 });
 
 class MusicTable extends Component {
+  state = {
+    anchorEl: null,
+    track: null,
+  };
+
   formatTime(duration) {
     const formattedTime = ("00" + Math.floor(duration / 60).toString()).slice(-2) + ":" +
       ("00" + (duration % 60).toString()).slice(-2);
@@ -26,8 +32,23 @@ class MusicTable extends Component {
     return formattedTime;
   }
 
+  handleOpenMenu = (event, track) => {
+    this.setState({ anchorEl: event.currentTarget, track: track });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null, track: null });
+  };
+
+  isTrackInPlaylist = (playlistKey) => {
+    if (this.props.playlists[playlistKey] === undefined)
+      return false;
+    return this.props.playlists[playlistKey].find(t => t.musicId === this.state.track.musicId);
+  };
+
   render() {
     const { classes, tracks } = this.props;
+    const { anchorEl, track } = this.state;
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
@@ -60,7 +81,7 @@ class MusicTable extends Component {
                   <TableCell padding="checkbox">{t.author}</TableCell>
                   <TableCell numeric>{this.formatTime(t.duration)}</TableCell>
                   <TableCell padding="checkbox">
-                    <IconButton>
+                    <IconButton onClick={(event) => this.handleOpenMenu(event, t)}>
                       <PlaylistPlus/>
                     </IconButton>
                   </TableCell>
@@ -69,13 +90,29 @@ class MusicTable extends Component {
             })}
           </TableBody>
         </Table>
+        <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={this.handleCloseMenu}>
+          {this.props.playlists.map(playlist =>
+            <MenuItem
+              key={playlist}
+              selected={this.isTrackInPlaylist(playlist)}
+              onClick={() => {
+                this.props.addRemoveTrackPlaylist(this.state.track, playlist);
+                this.setState({ anchorEl: null });
+              }}
+            >
+              {playlist}
+            </MenuItem>
+          )}
+        </Menu>
       </Paper>
     );
   }
 }
 MusicTable.propTypes = {
   tracks: PropTypes.array.isRequired,
-  play: PropTypes.func.isRequired
+  playlists: PropTypes.array.isRequired,
+  play: PropTypes.func.isRequired,
+  addRemoveTrackPlaylist: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(MusicTable);

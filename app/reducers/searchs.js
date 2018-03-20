@@ -5,7 +5,6 @@ import actionList from "../actions/actionList";
 export default handleActions({
   [actionList.searchPending]: (state, action) => {
     const apiList = getAllApis();
-    console.log(apiList);
     let promises = Array();
     apiList.forEach((api) => {
       promises.push(api.searchMusic(action.payload));

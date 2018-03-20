@@ -19,7 +19,7 @@ class Routes extends React.Component {
       <div className={classes.page}>
         <Switch>
           <Route exact path="/" component={SearchPage}/>
-          <Route exact path="/playlist" component={PlaylistPage} />
+          <Route exact path="/playlists" component={PlaylistPage} />
         </Switch>
       </div>
     );
