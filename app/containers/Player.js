@@ -10,7 +10,6 @@ import PlayerBar from "../components/PlayerBar";
 class Player extends Component {
   state = {
     position: 0,
-    isPlayingNext: false,
   }
 
   componentDidMount() {
@@ -26,27 +25,17 @@ class Player extends Component {
   };
 
   handleNext = () => {
-    this.setState({ isPlayingNext: true });
     this.props.next();
   };
 
   handlePrevious = () => {
-    this.setState({ isPlayingNext: true });
     this.props.previous(this.state.position);
   };
 
   onPause = (audioPlayer) => {
-    // Reset the position on next and previous
-    if (this.state.isPlayingNext) {
-      this.setState({
-        position: 0,
-        isPlayingNext: false,
-      });
-    } else {
-      this.setState({
-        position: audioPlayer.position,
-      });
-    }
+    this.setState({
+      position: audioPlayer.position,
+    });
   };
 
   render() {
@@ -59,6 +48,7 @@ class Player extends Component {
           playFromPosition={this.state.position}
           onFinishedPlaying={this.handleNext}
           onPause={this.onPause}
+          onLoad={()=>{this.setState({position:0});}}
           volume={10}
         />
         <Typography>
