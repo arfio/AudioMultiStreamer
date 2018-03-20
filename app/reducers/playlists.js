@@ -18,7 +18,8 @@ export default handleActions({
     // Delete from playlist
     if (state.playlists[playlist].find(t => t.musicId === track.musicId)) {
       trackList = trackList.filter(t => {
-        t.musicId === track.musicId});
+        return t.musicId !== track.musicId
+      });
     // Add to playlist
     } else {
       trackList.push(track);
@@ -37,10 +38,14 @@ export default handleActions({
   },
 
   [actionList.playPlaylist]: (state, action) => {
+    const trackIndex = state.playlists[
+      Object.keys(state.playlists)[state.currentDisplayedPlaylist]
+    ].findIndex(t => t.musicId === action.payload.musicId);
+
     return {
       ...state,
       currentPlaylist: state.currentDisplayedPlaylist,
-      currentTrack: action.payload };
+      currentTrack: trackIndex };
   },
 
   [actionList.selectPlaylist]: (state, action) => {
@@ -49,12 +54,10 @@ export default handleActions({
 
   [actionList.next]: (state, action) => {
     const currentPlaylist = state.playlists[Object.keys(state.playlists)[state.currentPlaylist]];
-    console.log("NEXT CURRENTPLAYLIST:", currentPlaylist);
     let nextTrack = state.currentTrack + 1;
-    if (state.currentTrack >= currentPlaylist.length) {
+    if (nextTrack >= currentPlaylist.length) {
       nextTrack = 0;
     }
-    console.log("DISPATCH NEXT TRACK", currentPlaylist[nextTrack]);
     action.asyncDispatch(
       actionList.playPending(currentPlaylist[nextTrack])
     );
@@ -62,7 +65,12 @@ export default handleActions({
   },
 
   [actionList.previous]: (state, action) => {
-    // TODO
+    const currentPlaylist = state.playlists[Object.keys(state.playlists)[state.currentPlaylist]];
+    const previousTrack = state.currentTrack - 1 < 0 ? 0 : state.currentTrack - 1;
+    action.asyncDispatch(
+      actionList.playPending(currentPlaylist[previousTrack])
+    );
+    return { ...state, currentTrack: previousTrack };
   },
 }, {
   playlists: {},
